@@ -1,0 +1,36 @@
+# Rendered by the nginx image at startup; ${PORT} comes from Railway.
+server {
+    listen ${PORT};
+    listen [::]:${PORT};
+    server_name _;
+    root /usr/share/nginx/html;
+
+    server_tokens off;
+    # No visitor logging: request lines and error messages would include IP addresses.
+    access_log off;
+    log_not_found off;
+    error_log /dev/stderr crit;
+    # Relative redirects (e.g. /rates -> /rates/) so they work behind Railway's proxy.
+    absolute_redirect off;
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain application/xml;
+
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
+
+    # Fingerprinted build assets never change.
+    location /_next/static/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        add_header X-Content-Type-Options "nosniff" always;
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+    error_page 404 /404.html;
+}

@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sampled from the PrimeXpress logo: navy #113F7D, gold #E9A419 */
+  --color-brand-50: #edf2f9;
+  --color-brand-100: #d3e0f1;
+  --color-brand-200: #a9c1e3;
+  --color-brand-500: #2a62b0;
+  --color-brand-600: #1d4f96;
+  --color-brand-700: #164689;
+  --color-brand-800: #133f7d;
+  --color-brand-900: #113f7d;
+  --color-brand-950: #0a2650;
+  --color-accent-300: #f6d27e;
+  --color-accent-400: #efb83f;
+  --color-accent-500: #e9a419;
+  --color-accent-600: #c98a0c;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-slate-900 antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@layer components {
+  .btn-primary {
+    @apply btn bg-brand-900 text-white hover:bg-brand-950;
+  }
+  .btn-accent {
+    @apply btn bg-accent-500 text-brand-950 hover:bg-accent-400;
+  }
+  .btn-outline {
+    @apply btn border border-slate-300 bg-white text-slate-800 hover:bg-slate-50;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .input {
+    @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+  .table-wrap {
+    @apply overflow-x-auto rounded-2xl border border-slate-200 bg-white;
+  }
+  .table {
+    @apply min-w-full divide-y divide-slate-200 text-sm;
+  }
+  .table th {
+    @apply bg-slate-50 px-4 py-3 text-left text-xs font-semibold tracking-wide text-slate-600 uppercase;
+  }
+  .table td {
+    @apply px-4 py-3 align-top text-slate-700;
+  }
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+}
